@@ -308,7 +308,6 @@ const en = {
     how: "How It Works",
     services: "Our Services",
     about: "About Sengai",
-    contact: "Contact",
     cta: "Arrange a Meal",
   },
   hero: {
@@ -481,7 +480,6 @@ const ta = {
     how: "எப்படிச் செயல்படுகிறது",
     services: "எங்கள் சேவைகள்",
     about: "செங்கை பற்றி",
-    contact: "தொடர்புக்கு",
     cta: "சாப்பாடு ஏற்பாடு செய்ய",
   },
   hero: {
@@ -692,7 +690,7 @@ let firstRender = true, cityIdx = 0, cityTimer = null;
 
 /* ---------- sections ---------- */
 function nav(t) {
-  const links = [["#top", t.nav.home], ["#how", t.nav.how], ["#services", t.nav.services], ["#about", t.nav.about], ["#arrange", t.nav.contact]];
+  const links = [["#top", t.nav.home], ["#how", t.nav.how], ["#services", t.nav.services], ["#about", t.nav.about]];
   return `<a class="skip" href="#main">${t.meta.skip}</a>
   <header class="nav" id="navbar"><nav class="wrap nav-in" aria-label="Main">
     <a href="#top" aria-label="Sengai home">${logo()}</a>
@@ -863,7 +861,7 @@ function loadTally() {
 }
 
 function footer(t) {
-  const links = [["#top", t.nav.home], ["#how", t.nav.how], ["#services", t.nav.services], ["#about", t.nav.about], ["#arrange", t.nav.contact]];
+  const links = [["#top", t.nav.home], ["#how", t.nav.how], ["#services", t.nav.services], ["#about", t.nav.about]];
   return `<footer id="contact"><div class="wrap foot-grid">
     <div>${logo("#f6eee1", "#e8c9b8")}<p class="f-soft" style="margin-top:1.5rem;max-width:20rem">${fill(t.footer.serving)}</p></div>
     <nav aria-label="Footer"><ul>${links.map(([h, l]) => `<li><a href="${h}">${l}</a></li>`).join("")}</ul></nav>
