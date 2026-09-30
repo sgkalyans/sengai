@@ -263,7 +263,8 @@ html[lang="ta"] .final h2{font-size:clamp(1.6rem,4.6vw,2.5rem);line-height:1.45;
 .form-intro{text-align:center}
 .form-intro .mark{width:3.5rem;height:3.5rem;margin:0 auto}
 .form-intro h2{margin-top:1.25rem}
-.tally-wrap{background:var(--bg-2);border-radius:var(--r);padding:1.25rem;min-width:0}
+/* Tally renders dark text we cannot restyle, so the form card stays light in both themes. */
+.tally-wrap{background:#fbf7f0;color-scheme:light;border-radius:var(--r);padding:1.25rem;min-width:0}
 @media(min-width:640px){.tally-wrap{padding:1.75rem}}
 .tally-wrap iframe{display:block;width:100%;min-height:22rem;border:0}
 .small{font-size:.875rem;color:var(--ink-soft)}
