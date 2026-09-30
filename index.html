@@ -14,7 +14,7 @@
   --accent:#9a3b22; --accent-deep:#6e2915; --accent-soft:#e8c9b8; --brass:#b7862c;
   --ink:#2b2420; --ink-soft:#5c514a; --line:rgba(43,36,32,.12); --line-strong:rgba(43,36,32,.22);
   --on-accent:#fbf7f0; --ask-bg:#6e2915; --ask-ink:#f6eee1; --bubble:#fbf7f0; --bubble-ink:#6e2915;
-  --footer-bg:#2b2420; --footer-ink:#f6eee1; --wa:#1f8f4e;
+  --footer-bg:#2b2420; --footer-ink:#f6eee1;
   --sans:"Hanken Grotesk","Noto Sans Tamil",ui-sans-serif,system-ui,sans-serif;
   --tamil:"Noto Sans Tamil","Hanken Grotesk",ui-sans-serif,system-ui,sans-serif;
   --tamil-serif:"Noto Serif Tamil","Noto Sans Tamil",Georgia,serif;
@@ -70,9 +70,6 @@ html[lang="ta"] .h2{font-size:clamp(1.6rem,4.6vw,2.5rem);line-height:1.4;letter-
 .btn-secondary{border-color:var(--line-strong);background:transparent}
 .btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
 .btn-light{background:#fbf7f0;color:#6e2915}
-.btn-outline-light{border-color:rgba(251,247,240,.45);color:#fbf7f0;background:transparent}
-.btn-outline-light:hover{background:rgba(251,247,240,.1)}
-.btn-wa{background:var(--wa);color:#fff}
 .btn-text{background:none;border:0;color:var(--accent);text-decoration:underline;text-underline-offset:4px;padding:0;min-height:0}
 .btn[disabled]{opacity:.6;cursor:progress}
 
@@ -264,7 +261,6 @@ html[lang="ta"] .final h2{font-size:clamp(1.6rem,4.6vw,2.5rem);line-height:1.45;
 .tally-wrap{background:var(--bg-2);border-radius:var(--r);padding:1.25rem;min-width:0}
 @media(min-width:640px){.tally-wrap{padding:1.75rem}}
 .tally-wrap iframe{display:block;width:100%;min-height:22rem;border:0}
-.alt-wa{margin-top:1.5rem;display:flex;flex-direction:column;gap:.75rem;align-items:flex-start}
 .small{font-size:.875rem;color:var(--ink-soft)}
 
 /* footer */
@@ -287,7 +283,6 @@ footer h2{font-size:1.125rem;font-weight:600}
 .sticky{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;gap:.6rem;padding:.75rem 1rem calc(.75rem + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--bg-2) 94%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .3s}
 .sticky.show{transform:none}
 .sticky .btn-primary{flex:1}
-.sticky .wa{width:3rem;height:3rem;border-radius:999px;background:var(--wa);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 @media(min-width:768px){.sticky{display:none}}
 
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rise,.city{animation:none}.sticky{transition:none}}
@@ -297,7 +292,6 @@ footer h2{font-size:1.125rem;font-weight:600}
 <div id="app"></div>
 <div class="sticky" id="sticky" aria-hidden="true">
   <a class="btn btn-primary" href="#arrange" tabindex="-1" id="stickyCta"></a>
-  <a class="wa" href="#arrange" tabindex="-1" id="stickyWa"><span class="sr-only" id="stickyWaLabel"></span></a>
 </div>
 <script>
 
@@ -437,7 +431,6 @@ const en = {
       { title: "Reliable delivery", body: "Delivered in the time you choose. Delivery hours: {hours}." },
       { title: "Clear communication", body: "One point of contact on WhatsApp, in English or Tamil." },
       { title: "Customer support", body: "Reach us by WhatsApp, phone or email." },
-      { title: "Updates for you", body: "We keep you — the person arranging — informed." },
     ],
   },
   stories: {
@@ -460,16 +453,12 @@ const en = {
     title: ["Give them more than a meal.", "Give them your care."],
     body: "You may not always be able to sit beside them. But you can still be there for them.",
     primary: "Arrange Their First Meal",
-    secondary: "Talk to Sengai",
   },
   form: {
     title: "Arrange a meal",
     intro: "Leave your details and our team will contact you on WhatsApp. Nothing is charged at this step.",
     frameTitle: "Arrange a meal form",
     openForm: "Open the form",
-    orWa: "Prefer to chat? Message us directly.",
-    chatWa: "Chat on WhatsApp",
-    waIntro: "Hi Sengai, I'd like to arrange a meal.",
   },
   footer: {
     serving: "Serving {town} and surrounding areas",
@@ -477,7 +466,6 @@ const en = {
   },
   sticky: {
     cta: "Arrange a Meal",
-    whatsapp: "Chat on WhatsApp",
   },
 };
 
@@ -617,7 +605,6 @@ const ta = {
       { title: "சொன்ன நேரத்தில் டெலிவரி", body: "நீங்கள் தேர்ந்தெடுக்கும் நேரத்தில். டெலிவரி நேரம்: {hours}." },
       { title: "தெளிவான தொடர்பு", body: "வாட்ஸ்அப்பில் ஒரே தொடர்பு நபர் — தமிழிலோ ஆங்கிலத்திலோ." },
       { title: "வாடிக்கையாளர் உதவி", body: "வாட்ஸ்அப், தொலைபேசி அல்லது மின்னஞ்சல் மூலம் எங்களைத் தொடர்பு கொள்ளலாம்." },
-      { title: "உங்களுக்குத் தகவல்", body: "ஏற்பாடு செய்யும் உங்களுக்கு, நடப்பதைத் தெரியப்படுத்திக்கொண்டே இருப்போம்." },
     ],
   },
   stories: {
@@ -640,16 +627,12 @@ const ta = {
     title: ["ஒரு வேளைச் சாப்பாட்டுக்கும் மேலாக,", "உங்கள் அக்கறையைக் கொடுங்கள்."],
     body: "எப்போதும் அவர்கள் பக்கத்தில் உட்கார முடியாமல் போகலாம். ஆனாலும், அவர்களுக்காக நீங்கள் இருக்க முடியும்.",
     primary: "முதல் சாப்பாட்டை ஏற்பாடு செய்யுங்கள்",
-    secondary: "செங்கையிடம் பேசுங்கள்",
   },
   form: {
     title: "சாப்பாடு ஏற்பாடு செய்யுங்கள்",
     intro: "உங்கள் விவரங்களைத் தாருங்கள், எங்கள் குழு வாட்ஸ்அப்பில் தொடர்பு கொள்ளும்.",
     frameTitle: "சாப்பாடு ஏற்பாடு படிவம்",
     openForm: "படிவத்தைத் திறக்க",
-    orWa: "நேரடியாகப் பேச விரும்புகிறீர்களா?",
-    chatWa: "வாட்ஸ்அப்பில் பேச",
-    waIntro: "வணக்கம் செங்கை, சாப்பாடு ஏற்பாடு செய்ய விரும்புகிறேன்.",
   },
   footer: {
     serving: "{town} மற்றும் சுற்றுவட்டாரப் பகுதிகளில் சேவை",
@@ -657,7 +640,6 @@ const ta = {
   },
   sticky: {
     cta: "சாப்பாடு ஏற்பாடு செய்ய",
-    whatsapp: "வாட்ஸ்அப்பில் பேச",
   },
 };
 
@@ -667,14 +649,10 @@ const dictionaries = { en, ta };
 /* Business details not yet confirmed — replace before launch. */
 const CONFIG = {
   town: { en: "Pattukkottai", ta: "பட்டுக்கோட்டை" },
-  whatsapp: "[WHATSAPP NUMBER]",
   deliveryHours: "[DELIVERY HOURS]",
   mealOptions: "[MEAL OPTIONS]",
   tallyForm: "Ekybro"
 };
-const isPh = v => !v || /^\[.*\]$/.test(v.trim());
-const waDigits = () => isPh(CONFIG.whatsapp) ? "" : CONFIG.whatsapp.replace(/\D/g, "");
-const waLink = msg => waDigits() ? `https://wa.me/${waDigits()}${msg ? "?text=" + encodeURIComponent(msg) : ""}` : "#arrange";
 const fill = s => s.replaceAll("{town}", CONFIG.town[locale]).replaceAll("{hours}", CONFIG.deliveryHours).replaceAll("{meals}", CONFIG.mealOptions);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
@@ -696,7 +674,6 @@ const icons = {
   pin: I('<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21Z"/><circle cx="12" cy="10" r="2.3"/>', ""),
   menu: I('<path d="M4 8h16M4 16h16"/>'),
   close: I('<path d="M6 6l12 12M18 6 6 18"/>'),
-  wa: (s = 20) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.98L2 22l5.16-1.5A9.9 9.9 0 1 0 12.04 2Zm0 18.1a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.06.9.9-2.98-.2-.31a8.2 8.2 0 1 1 6.86 3.72Zm4.5-6.14c-.25-.12-1.46-.72-1.69-.8-.23-.08-.39-.12-.55.12-.16.25-.63.8-.78.96-.14.17-.29.19-.53.07a6.7 6.7 0 0 1-3.34-2.92c-.25-.43.25-.4.72-1.34.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.41-.55-.42h-.47a.9.9 0 0 0-.65.3 2.74 2.74 0 0 0-.86 2.04c0 1.2.88 2.37 1 2.53.12.17 1.73 2.64 4.2 3.7 1.56.68 2.17.73 2.95.62.48-.07 1.46-.6 1.67-1.18.2-.58.2-1.08.14-1.18-.06-.1-.22-.17-.47-.29Z"/></svg>`
 };
 const mark = (main = "var(--accent)", steam = "var(--brass)") => `<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M19 30h26a13 13 0 0 1-26 0z" fill="${main}"/><path d="M10 33c1 12 11 20 22 20 9 0 17-5 21-13 1.5-3-.5-6-3.5-5.5" fill="none" stroke="${main}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M32 11c-3 3.5 3 5.5 0 10" fill="none" stroke="${steam}" stroke-width="3" stroke-linecap="round"/></svg>`;
 const logo = (main, steam) => `<span class="logo">${mark(main, steam)}<span><span class="ta" lang="ta">செங்கை</span><span class="en">A Caring Hand</span></span></span>`;
@@ -860,7 +837,7 @@ function finalCta(t) {
   return `<section class="final" aria-labelledby="final-title"><div class="final-in">
     <h2 id="final-title"><span>${f.title[0]}</span><span>${f.title[1]}</span></h2>
     <p>${f.body}</p>
-    <div class="cta-row"><a class="btn btn-light" href="#arrange">${f.primary}</a><a class="btn btn-outline-light" href="${waDigits() ? waLink(t.form.waIntro) : "#arrange"}">${icons.wa()}${f.secondary}</a></div>
+    <div class="cta-row"><a class="btn btn-light" href="#arrange">${f.primary}</a></div>
   </div></section>`;
 }
 
@@ -872,8 +849,6 @@ function formSection(t) {
     <div style="min-width:0">
       <div class="tally-wrap"><iframe data-tally-src="${src}" loading="lazy" height="352" title="${esc(f.frameTitle)}"></iframe>
         <noscript><a class="btn btn-primary" href="https://tally.so/r/${CONFIG.tallyForm}">${f.openForm}</a></noscript></div>
-      ${waDigits() ? `<div class="alt-wa"><p class="small">${f.orWa}</p>
-        <a class="btn btn-wa" href="${waLink(f.waIntro)}" target="_blank" rel="noopener">${icons.wa()}${f.chatWa}</a></div>` : ""}
     </div>
   </div></section>`;
 }
@@ -905,9 +880,6 @@ function render() {
   document.getElementById("app").innerHTML =
     nav(t) + `<main id="main">` + hero(t) + ask(t) + distance(t) + services(t) + how(t) + nri(t) + trust(t) + stories(t) + about(t) + finalCta(t) + formSection(t) + `</main>` + footer(t);
   document.getElementById("stickyCta").textContent = t.sticky.cta;
-  const wa = document.getElementById("stickyWa");
-  wa.innerHTML = icons.wa(24) + `<span class="sr-only">${t.sticky.whatsapp}</span>`;
-  wa.href = waLink(t.form.waIntro);
   firstRender = false;
   bind(t);
   loadTally();
