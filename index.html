@@ -122,10 +122,9 @@ header.nav.scrolled{box-shadow:0 1px 0 var(--line)}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .rise{animation:rise .9s cubic-bezier(.22,1,.36,1) both}
 
-/* photo placeholder */
+/* photos */
 .photo{position:relative;overflow:hidden;background:#ebddc6}
-.photo svg.scene{position:absolute;inset:0;width:100%;height:100%}
-.photo .tag{position:absolute;left:.75rem;bottom:.75rem;background:rgba(251,247,240,.88);color:#5c514a;font-size:.7rem;font-weight:500;padding:.25rem .6rem;border-radius:999px;font-family:var(--sans)}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 
 /* ask */
 .ask{background:var(--ask-bg);color:var(--ask-ink)}
@@ -208,7 +207,7 @@ html[lang="ta"] .dist-title{font-size:clamp(2rem,6vw,3.2rem);line-height:1.35;le
 .nri{background:var(--husk-soft)}
 .nri-grid{display:grid;gap:3rem;align-items:center}
 @media(min-width:1024px){.nri-grid{grid-template-columns:.85fr 1.15fr;gap:5rem}}
-.nri-photo{aspect-ratio:4/5;width:100%;max-width:28rem;justify-self:center;border-radius:var(--r);order:2}
+.nri-photo{aspect-ratio:3/2;width:100%;max-width:34rem;justify-self:center;border-radius:var(--r);order:2}
 @media(min-width:1024px){.nri-photo{order:0}}
 .flags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2rem}
 .flags li{display:inline-flex;gap:.5rem;align-items:center;background:var(--bg-2);border-radius:999px;padding:.35rem .9rem;font-size:.95rem}

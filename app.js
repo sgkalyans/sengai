@@ -392,12 +392,7 @@ const logo = () => `<span class="logo">${mark()}<span><span class="name">Sengai<
 
 /* ---------- photo placeholders ---------- */
 const tiffin = `<g transform="translate(150 262)"><path d="M22 8c0-14 56-14 56 0" fill="none" stroke="#8d8f8c" stroke-width="5" stroke-linecap="round"/><path d="M22 8v40M78 8v40" stroke="#8d8f8c" stroke-width="4" stroke-linecap="round"/>${[0,1,2].map(i=>`<g transform="translate(0 ${20+i*40})"><rect x="12" width="76" height="38" rx="10" fill="#c9cbc7"/><rect x="12" width="76" height="8" rx="4" fill="#dfe0dd"/><rect x="20" y="12" width="6" height="22" rx="3" fill="#e9eae7"/></g>`).join("")}<ellipse cx="50" cy="146" rx="46" ry="6" fill="#2b2420" opacity=".08"/></g>`;
-const scenes = {
-  doorway: `<svg class="scene" viewBox="0 0 400 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="400" height="480" fill="#ebddc6"/><path d="M110 480V190a90 90 0 0 1 180 0v290Z" fill="#e8c9b8"/><path d="M130 480V196a70 70 0 0 1 140 0v284Z" fill="#f6eee1"/><path d="M130 480 60 480 130 330Z" fill="#f6eee1" opacity=".5"/><rect x="40" y="420" width="320" height="18" rx="3" fill="#d9c6a8"/><rect x="40" y="438" width="320" height="42" fill="#cdb693"/>${tiffin}<g fill="#9a3b22" opacity=".18">${[0,1,2,3,4].map(i=>`<circle cx="${160+i*20}" cy="458" r="2.4"/>`).join("")}</g></svg>`,
-  meal: `<svg class="scene" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="400" height="300" fill="#e3cfae"/><path d="M0 210c80-30 170 20 260-10s110-20 140 0v100H0Z" fill="#d7bf98"/><path d="M40 150c60-70 260-80 330-20-70 60-260 70-330 20Z" fill="#6f7d4c"/><path d="M45 150c100-18 210-22 320-20" stroke="#8a9960" stroke-width="3" fill="none"/>${[[120,130,26,"#c8962f"],[185,118,22,"#a8431f"],[245,132,24,"#e7d9b4"],[300,124,18,"#b35a2a"]].map(([x,y,r,f])=>`<circle cx="${x}" cy="${y}" r="${r+5}" fill="#cfd1cd"/><circle cx="${x}" cy="${y}" r="${r}" fill="${f}"/>`).join("")}<ellipse cx="190" cy="170" rx="50" ry="18" fill="#f8f4ea"/></svg>`,
-  call: `<svg class="scene" viewBox="0 0 400 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="400" height="480" fill="#2e3440"/><rect x="40" y="40" width="320" height="260" rx="8" fill="#3d4658"/><g fill="#f3c77a" opacity=".7">${Array.from({length:24},(_,i)=>`<rect x="${60+(i%8)*38}" y="${200+Math.floor(i/8)*26}" width="10" height="12" rx="1"/>`).join("")}</g><rect x="140" y="170" width="120" height="230" rx="18" fill="#1d1f24"/><rect x="148" y="182" width="104" height="206" rx="12" fill="#ebddc6"/><path d="M160 388V300a40 40 0 0 1 80 0v88Z" fill="#e8c9b8"/><circle cx="185" cy="300" r="14" fill="#9a3b22" opacity=".85"/><circle cx="217" cy="304" r="13" fill="#6e2915" opacity=".85"/><path d="M165 388c4-40 36-40 40-40s36 0 40 40Z" fill="#b7862c" opacity=".5"/></svg>`
-};
-const photo = (scene, cls, alt) => `<div class="photo ${cls}" role="img" aria-label="${esc(alt)}">${scenes[scene]}<span class="tag">Photo placeholder</span></div>`;
+const photo = (src, cls, alt, w, h, lazy = true) => `<div class="photo ${cls}"><img src="img/${src}" alt="${esc(alt)}" width="${w}" height="${h}"${lazy ? ' loading="lazy"' : ""} decoding="async"></div>`;
 
 /* ---------- state ---------- */
 let locale = "en";
@@ -443,7 +438,7 @@ function hero(t) {
       </div>
       <p ${rc("serving", 760)}>${icons.pin}${fill(t.hero.serving)}</p>
     </div>
-    <div ${firstRender ? 'class="rise" style="animation-delay:300ms"' : ""}>${photo("doorway", "arch", "An elderly couple at home in Tamil Nadu receiving a freshly prepared meal")}</div>
+    <div ${firstRender ? 'class="rise" style="animation-delay:300ms"' : ""}>${photo("home-meal.jpg", "arch", "An elderly couple smiling as they share a home-style meal at their dining table", 781, 976, false)}</div>
   </div></section>`;
 }
 
@@ -481,7 +476,7 @@ function services(t) {
   return `<section id="services" class="services sec" aria-labelledby="svc-title"><div class="wrap">
     <div style="max-width:42rem"><h2 id="svc-title" class="h2">${s.title}</h2><p class="lead" style="margin-top:1rem">${s.intro}</p></div>
     <div class="svc-grid">
-      <article class="feature">${photo("meal", "", "A South Indian meal, just like home")}
+      <article class="feature">${photo("meal.jpg", "", "A South Indian meal of rice, sambar, rasam, poriyal and curd on a banana leaf", 669, 502)}
         <div class="body"><div class="ic-title">${ic[f.key]}<h3>${f.title}</h3></div><p class="lead" style="margin-top:.5rem">${f.body}</p></div>
       </article>
       <ul class="svc-list">${rest.map(i => `<li><span class="dot-ic">${ic[i.key]}</span><div><h3>${i.title}</h3><p class="muted" style="margin-top:.25rem">${i.body}</p></div></li>`).join("")}</ul>
@@ -506,7 +501,7 @@ function how(t) {
 function nri(t) {
   const n = t.nri;
   return `<section class="nri sec" aria-labelledby="nri-title"><div class="wrap nri-grid">
-    ${photo("call", "nri-photo", "A person abroad on a video call with their parents back home")}
+    ${photo("video-call.jpg", "nri-photo", "An elderly couple at home waving on a video call", 734, 507)}
     <div>
       <h2 id="nri-title" class="h2">${n.title}</h2>
       <div class="lead measure" style="margin-top:1.25rem">${n.body.map((p, i) => `<p style="${i ? "margin-top:.75rem;color:var(--ink);font-weight:500" : ""}">${p}</p>`).join("")}</div>
