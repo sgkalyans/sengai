@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>செங்கை · Sengai — A Caring Hand (prototype)</title>
 <meta name="description" content="Arrange meals that taste just like home for your parents and loved ones in Tamil Nadu, from wherever you live.">
+<script>try{var th=localStorage.getItem("sengai-theme");if(th==="light"||th==="dark")document.documentElement.dataset.theme=th}catch(e){}</script>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="logo-mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&family=Noto+Serif+Tamil:wght@600;700&display=swap" rel="stylesheet">
@@ -14,7 +17,7 @@
   --accent:#9a3b22; --accent-deep:#6e2915; --accent-soft:#e8c9b8; --brass:#b7862c;
   --ink:#2b2420; --ink-soft:#5c514a; --line:rgba(43,36,32,.12); --line-strong:rgba(43,36,32,.22);
   --on-accent:#fbf7f0; --ask-bg:#6e2915; --ask-ink:#f6eee1; --bubble:#fbf7f0; --bubble-ink:#6e2915;
-  --footer-bg:#2b2420; --footer-ink:#f6eee1;
+  --footer-bg:#2b2420; --footer-ink:#f6eee1; --brand-teal:#07706a; --tag-bg:#fde2e0; --tag-ink:#c8102e;
   --sans:"Hanken Grotesk","Noto Sans Tamil",ui-sans-serif,system-ui,sans-serif;
   --tamil:"Noto Sans Tamil","Hanken Grotesk",ui-sans-serif,system-ui,sans-serif;
   --tamil-serif:"Noto Serif Tamil","Noto Sans Tamil",Georgia,serif;
@@ -24,21 +27,12 @@
   padding-bottom:env(safe-area-inset-bottom,0px);
   color-scheme:light;
 }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#1d1815; --bg-2:#241e1a; --husk:#2f2620; --husk-soft:#29211c;
-    --accent:#d0694a; --accent-deep:#b4512f; --accent-soft:#5a2d1f; --brass:#d1a14a;
-    --ink:#f1e7d8; --ink-soft:#c1b2a1; --line:rgba(241,231,216,.12); --line-strong:rgba(241,231,216,.24);
-    --on-accent:#1d1815; --ask-bg:#3a170c; --ask-ink:#f1e7d8; --bubble:#f6eee1; --bubble-ink:#6e2915;
-    --footer-bg:#141110; --footer-ink:#f1e7d8; color-scheme:dark;
-  }
-}
 :root[data-theme="dark"]{
   --bg:#1d1815; --bg-2:#241e1a; --husk:#2f2620; --husk-soft:#29211c;
   --accent:#d0694a; --accent-deep:#b4512f; --accent-soft:#5a2d1f; --brass:#d1a14a;
   --ink:#f1e7d8; --ink-soft:#c1b2a1; --line:rgba(241,231,216,.12); --line-strong:rgba(241,231,216,.24);
   --on-accent:#1d1815; --ask-bg:#3a170c; --ask-ink:#f1e7d8; --bubble:#f6eee1; --bubble-ink:#6e2915;
-  --footer-bg:#141110; --footer-ink:#f1e7d8; color-scheme:dark;
+  --footer-bg:#141110; --footer-ink:#f1e7d8; --brand-teal:#6fc3b8; --tag-bg:#4a1c1c; --tag-ink:#ff9a8f; color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:calc(5rem + env(safe-area-inset-top,0px));-webkit-text-size-adjust:100%}
@@ -81,9 +75,12 @@ header.nav.scrolled{box-shadow:0 1px 0 var(--line)}
 .nav-in{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:4rem}
 @media(min-width:768px){.nav-in{height:5rem}}
 .logo{display:inline-flex;align-items:center;gap:.6rem}
-.logo svg{width:2rem;height:2rem;flex-shrink:0}
-.logo .ta{font-family:var(--tamil-serif);font-weight:700;color:var(--accent);font-size:1.3rem;line-height:1.15;display:block}
-.logo .en{display:block;font-size:.65rem;color:var(--ink-soft);font-weight:500;letter-spacing:.02em;line-height:1.1;margin-top:.1rem;font-family:var(--sans)}
+.mark{display:block;flex-shrink:0}
+.logo .mark{width:2.5rem;height:2.5rem}
+:root[data-theme="dark"] .logo .mark,:root[data-theme="dark"] .form-intro .mark{padding:.2rem;background:#fbf7f0;border-radius:999px;box-sizing:content-box}
+.logo .name{font-family:var(--sans);font-weight:700;color:var(--brand-teal);font-size:1.35rem;line-height:1.1;display:block}
+.logo .en{display:table;font-size:.65rem;color:var(--tag-ink);background:var(--tag-bg);padding:.12rem .5rem;border-radius:999px;font-weight:600;letter-spacing:.03em;line-height:1.2;margin-top:.2rem;font-family:var(--sans);white-space:nowrap}
+@media(max-width:479px){.logo .en{padding:.1rem .4rem;letter-spacing:.01em;font-size:.6rem}}
 .nav-links{display:none;gap:1.75rem;font-size:.95rem;color:var(--ink-soft)}
 .nav-links a:hover{color:var(--accent)}
 @media(min-width:1024px){.nav-links{display:flex}}
@@ -93,6 +90,13 @@ header.nav.scrolled{box-shadow:0 1px 0 var(--line)}
 .lang{display:inline-flex;border:1px solid var(--line-strong);border-radius:999px;padding:2px;font-size:.875rem}
 .lang button{border:0;background:none;min-height:2.25rem;padding:0 .8rem;border-radius:999px;cursor:pointer;color:var(--ink-soft);font-weight:500}
 .lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.theme-btn{display:inline-flex;align-items:center;justify-content:center;width:2.5rem;height:2.5rem;border:1px solid var(--line-strong);background:none;cursor:pointer;border-radius:999px;color:var(--ink);flex-shrink:0}
+.theme-btn:hover{border-color:var(--accent);color:var(--accent)}
+.theme-btn svg{width:1.15rem;height:1.15rem}
+.theme-row{display:flex;align-items:center;gap:.75rem;width:100%;border:0;border-bottom:1px solid var(--line);background:none;padding:1rem 0;font-size:1.25rem;font-weight:500;color:var(--ink);cursor:pointer;text-align:left}
+.theme-row svg{width:1.4rem;height:1.4rem}
+@media(max-width:479px){.nav-in{gap:.5rem}.nav-right{gap:.25rem}.nav-right .theme-btn{display:none}.lang button{padding:0 .6rem}}
+@media(min-width:480px){.theme-row{display:none}}
 .menu-btn{display:inline-flex;align-items:center;justify-content:center;width:2.75rem;height:2.75rem;border:0;background:none;cursor:pointer;border-radius:999px}
 @media(min-width:1024px){.menu-btn{display:none}}
 .mobile-menu{position:fixed;inset:0;z-index:35;background:var(--bg);padding-top:calc(5.5rem + env(safe-area-inset-top,0px));overflow:auto}
@@ -148,8 +152,8 @@ html[lang="ta"] .dist-title{font-size:clamp(2rem,6vw,3.2rem);line-height:1.35;le
 @media(min-width:768px){.node{flex-direction:column;text-align:center}}
 .circle{width:4rem;height:4rem;border-radius:999px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.5rem}
 .circle.far{border:1px dashed var(--line-strong)}
-.circle.sengai{background:var(--accent)}
-.circle.sengai svg{width:2.25rem;height:2.25rem}
+.circle.sengai{background:#fff;border:1px solid var(--line)}
+.circle.sengai .mark{width:2.75rem;height:2.75rem}
 .circle.home{background:var(--husk);color:var(--accent-deep)}
 .circle.home svg{width:1.75rem;height:1.75rem}
 .node .l{display:block;font-size:1.25rem;font-weight:600}
@@ -254,9 +258,9 @@ html[lang="ta"] .final h2{font-size:clamp(1.6rem,4.6vw,2.5rem);line-height:1.45;
 .final .cta-row{justify-content:center;align-items:center;margin-top:2.5rem}
 
 /* form */
-.form-grid{display:grid;gap:2.5rem}
-@media(min-width:1024px){.form-grid{grid-template-columns:.8fr 1.2fr;gap:4rem}.form-intro{position:sticky;top:7rem;align-self:start}}
-.form-intro svg{width:3rem;height:3rem}
+.form-grid{display:grid;gap:2.5rem;max-width:48rem}
+.form-intro{text-align:center}
+.form-intro .mark{width:3.5rem;height:3.5rem;margin:0 auto}
 .form-intro h2{margin-top:1.25rem}
 .tally-wrap{background:var(--bg-2);border-radius:var(--r);padding:1.25rem;min-width:0}
 @media(min-width:640px){.tally-wrap{padding:1.75rem}}
@@ -268,9 +272,9 @@ footer{background:var(--footer-bg);color:var(--footer-ink);padding:4rem 0 7rem}
 @media(min-width:768px){footer{padding:5rem 0 3rem}}
 .foot-grid{display:grid;gap:3rem}
 @media(min-width:768px){.foot-grid{grid-template-columns:1.3fr 1fr}}
-footer .logo svg{width:3.5rem;height:3.5rem}
-footer .logo .ta{color:var(--footer-ink);font-size:2.1rem}
-footer .logo .en{color:rgba(246,238,225,.7);font-size:.85rem}
+footer .logo .mark{width:3.5rem;height:3.5rem;padding:.35rem;background:#fbf7f0;border-radius:999px;box-sizing:content-box}
+footer .logo .name{color:var(--footer-ink);font-size:2.1rem}
+footer .logo .en{color:#ff9a8f;background:#4a1c1c;font-size:.85rem}
 .f-soft{color:rgba(246,238,225,.7)}
 .f-dim{color:rgba(246,238,225,.5)}
 footer nav ul{display:grid;gap:.75rem}
@@ -301,6 +305,8 @@ const en = {
     skip: "Skip to content",
     languageLabel: "Language",
     menu: "Menu",
+    toDark: "Switch to dark mode",
+    toLight: "Switch to light mode",
     close: "Close",
   },
   nav: {
@@ -308,7 +314,6 @@ const en = {
     how: "How It Works",
     services: "Our Services",
     about: "About Sengai",
-    contact: "Contact",
     cta: "Arrange a Meal",
   },
   hero: {
@@ -474,6 +479,8 @@ const ta = {
     skip: "உள்ளடக்கத்துக்குச் செல்ல",
     languageLabel: "மொழி",
     menu: "பட்டியல்",
+    toDark: "இருண்ட பயன்முறைக்கு மாற்று",
+    toLight: "வெளிர் பயன்முறைக்கு மாற்று",
     close: "மூடு",
   },
   nav: {
@@ -481,7 +488,6 @@ const ta = {
     how: "எப்படிச் செயல்படுகிறது",
     services: "எங்கள் சேவைகள்",
     about: "செங்கை பற்றி",
-    contact: "தொடர்புக்கு",
     cta: "சாப்பாடு ஏற்பாடு செய்ய",
   },
   hero: {
@@ -670,11 +676,13 @@ const icons = {
   bell: I('<path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15Z"/><path d="M10 20.5a2 2 0 0 0 4 0"/>'),
   check: I('<path d="m5 12.5 4.5 4.5L19 7.5"/>', ""),
   pin: I('<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21Z"/><circle cx="12" cy="10" r="2.3"/>', ""),
+  sun: I('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'),
+  moon: I('<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/>'),
   menu: I('<path d="M4 8h16M4 16h16"/>'),
   close: I('<path d="M6 6l12 12M18 6 6 18"/>'),
 };
-const mark = (main = "var(--accent)", steam = "var(--brass)") => `<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M19 30h26a13 13 0 0 1-26 0z" fill="${main}"/><path d="M10 33c1 12 11 20 22 20 9 0 17-5 21-13 1.5-3-.5-6-3.5-5.5" fill="none" stroke="${main}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M32 11c-3 3.5 3 5.5 0 10" fill="none" stroke="${steam}" stroke-width="3" stroke-linecap="round"/></svg>`;
-const logo = (main, steam) => `<span class="logo">${mark(main, steam)}<span><span class="ta" lang="ta">செங்கை</span><span class="en">A Caring Hand</span></span></span>`;
+const mark = () => `<img class="mark" src="logo-mark.png" alt="" width="192" height="192">`;
+const logo = () => `<span class="logo">${mark()}<span><span class="name">Sengai</span><span class="en">A Caring Hand</span></span></span>`;
 
 /* ---------- photo placeholders ---------- */
 const tiffin = `<g transform="translate(150 262)"><path d="M22 8c0-14 56-14 56 0" fill="none" stroke="#8d8f8c" stroke-width="5" stroke-linecap="round"/><path d="M22 8v40M78 8v40" stroke="#8d8f8c" stroke-width="4" stroke-linecap="round"/>${[0,1,2].map(i=>`<g transform="translate(0 ${20+i*40})"><rect x="12" width="76" height="38" rx="10" fill="#c9cbc7"/><rect x="12" width="76" height="8" rx="4" fill="#dfe0dd"/><rect x="20" y="12" width="6" height="22" rx="3" fill="#e9eae7"/></g>`).join("")}<ellipse cx="50" cy="146" rx="46" ry="6" fill="#2b2420" opacity=".08"/></g>`;
@@ -692,7 +700,7 @@ let firstRender = true, cityIdx = 0, cityTimer = null;
 
 /* ---------- sections ---------- */
 function nav(t) {
-  const links = [["#top", t.nav.home], ["#how", t.nav.how], ["#services", t.nav.services], ["#about", t.nav.about], ["#arrange", t.nav.contact]];
+  const links = [["#top", t.nav.home], ["#how", t.nav.how], ["#services", t.nav.services], ["#about", t.nav.about]];
   return `<a class="skip" href="#main">${t.meta.skip}</a>
   <header class="nav" id="navbar"><nav class="wrap nav-in" aria-label="Main">
     <a href="#top" aria-label="Sengai home">${logo()}</a>
@@ -702,12 +710,14 @@ function nav(t) {
         <button type="button" lang="en" data-lang="en" aria-pressed="${locale === "en"}">English</button>
         <button type="button" lang="ta" data-lang="ta" aria-pressed="${locale === "ta"}">தமிழ்</button>
       </div>
+      <button type="button" class="theme-btn" data-theme-toggle></button>
       <a class="btn btn-primary nav-cta" href="#arrange">${t.nav.cta}</a>
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu"><span class="sr-only">${t.meta.menu}</span>${icons.menu}</button>
     </div>
   </nav></header>
   <div class="mobile-menu" id="mobileMenu" hidden><div class="wrap">
     ${links.map(([h, l]) => `<a class="item" href="${h}">${l}</a>`).join("")}
+    <button type="button" class="theme-row" data-theme-toggle data-row></button>
     <a class="btn btn-primary" style="width:100%;margin-top:2rem" href="#arrange">${t.nav.cta}</a>
   </div></div>`;
 }
@@ -752,7 +762,7 @@ function distance(t) {
     <ol class="flow">
       <li class="node"><span class="circle far" aria-hidden="true">🌍</span><span><span class="l">${d.you}</span><span class="p"><span class="city" id="city">${d.cities[cityIdx % d.cities.length]}</span></span><span class="n">${d.youNote}</span></span></li>
       <li class="thread" aria-hidden="true"><span></span></li>
-      <li class="node"><span class="circle sengai">${mark("#f6eee1", "#e8c9b8")}</span><span><span class="l">${d.sengai}</span><span class="p">📍 ${fill(d.sengaiPlace)}</span><span class="n">${d.sengaiNote}</span></span></li>
+      <li class="node"><span class="circle sengai">${mark()}</span><span><span class="l">${d.sengai}</span><span class="p">📍 ${fill(d.sengaiPlace)}</span><span class="n">${d.sengaiNote}</span></span></li>
       <li class="thread" aria-hidden="true"><span></span></li>
       <li class="node"><span class="circle home">${icons.home}</span><span><span class="l">${d.them}</span><span class="n">${d.themNote}</span></span></li>
     </ol>
@@ -863,9 +873,9 @@ function loadTally() {
 }
 
 function footer(t) {
-  const links = [["#top", t.nav.home], ["#how", t.nav.how], ["#services", t.nav.services], ["#about", t.nav.about], ["#arrange", t.nav.contact]];
+  const links = [["#top", t.nav.home], ["#how", t.nav.how], ["#services", t.nav.services], ["#about", t.nav.about]];
   return `<footer id="contact"><div class="wrap foot-grid">
-    <div>${logo("#f6eee1", "#e8c9b8")}<p class="f-soft" style="margin-top:1.5rem;max-width:20rem">${fill(t.footer.serving)}</p></div>
+    <div>${logo()}<p class="f-soft" style="margin-top:1.5rem;max-width:20rem">${fill(t.footer.serving)}</p></div>
     <nav aria-label="Footer"><ul>${links.map(([h, l]) => `<li><a href="${h}">${l}</a></li>`).join("")}</ul></nav>
   </div><div class="wrap"><p class="copy">© ${new Date().getFullYear()} ${t.footer.rights}</p></div></footer>`;
 }
@@ -892,6 +902,19 @@ function bind(t) {
     const y = window.scrollY; render(); window.scrollTo(0, y);
   }));
 
+  const themeBtns = document.querySelectorAll("[data-theme-toggle]");
+  const isDark = () => document.documentElement.dataset.theme === "dark";
+  const paintTheme = () => {
+    const dark = isDark(), label = dark ? t.meta.toLight : t.meta.toDark, ic = dark ? icons.sun : icons.moon;
+    themeBtns.forEach(b => { b.innerHTML = "row" in b.dataset ? `${ic}<span>${label}</span>` : `<span class="sr-only">${label}</span>${ic}`; b.title = label; });
+  };
+  paintTheme();
+  themeBtns.forEach(b => b.addEventListener("click", () => {
+    const next = isDark() ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem("sengai-theme", next); } catch (e) {}
+    paintTheme();
+  }));
   const menuBtn = document.getElementById("menuBtn"), menu = document.getElementById("mobileMenu");
   const setMenu = open => {
     menu.hidden = !open; menuBtn.setAttribute("aria-expanded", open);
