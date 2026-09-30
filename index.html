@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>செங்கை · Sengai — A Caring Hand (prototype)</title>
 <meta name="description" content="Arrange meals that taste just like home for your parents and loved ones in Tamil Nadu, from wherever you live.">
+<script>try{var th=localStorage.getItem("sengai-theme");if(th==="light"||th==="dark")document.documentElement.dataset.theme=th}catch(e){}</script>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="logo-mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -98,6 +99,13 @@ header.nav.scrolled{box-shadow:0 1px 0 var(--line)}
 .lang{display:inline-flex;border:1px solid var(--line-strong);border-radius:999px;padding:2px;font-size:.875rem}
 .lang button{border:0;background:none;min-height:2.25rem;padding:0 .8rem;border-radius:999px;cursor:pointer;color:var(--ink-soft);font-weight:500}
 .lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.theme-btn{display:inline-flex;align-items:center;justify-content:center;width:2.5rem;height:2.5rem;border:1px solid var(--line-strong);background:none;cursor:pointer;border-radius:999px;color:var(--ink);flex-shrink:0}
+.theme-btn:hover{border-color:var(--accent);color:var(--accent)}
+.theme-btn svg{width:1.15rem;height:1.15rem}
+.theme-row{display:flex;align-items:center;gap:.75rem;width:100%;border:0;border-bottom:1px solid var(--line);background:none;padding:1rem 0;font-size:1.25rem;font-weight:500;color:var(--ink);cursor:pointer;text-align:left}
+.theme-row svg{width:1.4rem;height:1.4rem}
+@media(max-width:479px){.nav-in{gap:.5rem}.nav-right{gap:.25rem}.nav-right .theme-btn{display:none}.lang button{padding:0 .6rem}}
+@media(min-width:480px){.theme-row{display:none}}
 .menu-btn{display:inline-flex;align-items:center;justify-content:center;width:2.75rem;height:2.75rem;border:0;background:none;cursor:pointer;border-radius:999px}
 @media(min-width:1024px){.menu-btn{display:none}}
 .mobile-menu{position:fixed;inset:0;z-index:35;background:var(--bg);padding-top:calc(5.5rem + env(safe-area-inset-top,0px));overflow:auto}
@@ -306,6 +314,8 @@ const en = {
     skip: "Skip to content",
     languageLabel: "Language",
     menu: "Menu",
+    toDark: "Switch to dark mode",
+    toLight: "Switch to light mode",
     close: "Close",
   },
   nav: {
@@ -478,6 +488,8 @@ const ta = {
     skip: "உள்ளடக்கத்துக்குச் செல்ல",
     languageLabel: "மொழி",
     menu: "பட்டியல்",
+    toDark: "இருண்ட பயன்முறைக்கு மாற்று",
+    toLight: "வெளிர் பயன்முறைக்கு மாற்று",
     close: "மூடு",
   },
   nav: {
@@ -673,6 +685,8 @@ const icons = {
   bell: I('<path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15Z"/><path d="M10 20.5a2 2 0 0 0 4 0"/>'),
   check: I('<path d="m5 12.5 4.5 4.5L19 7.5"/>', ""),
   pin: I('<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21Z"/><circle cx="12" cy="10" r="2.3"/>', ""),
+  sun: I('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'),
+  moon: I('<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/>'),
   menu: I('<path d="M4 8h16M4 16h16"/>'),
   close: I('<path d="M6 6l12 12M18 6 6 18"/>'),
 };
@@ -705,12 +719,14 @@ function nav(t) {
         <button type="button" lang="en" data-lang="en" aria-pressed="${locale === "en"}">English</button>
         <button type="button" lang="ta" data-lang="ta" aria-pressed="${locale === "ta"}">தமிழ்</button>
       </div>
+      <button type="button" class="theme-btn" data-theme-toggle></button>
       <a class="btn btn-primary nav-cta" href="#arrange">${t.nav.cta}</a>
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu"><span class="sr-only">${t.meta.menu}</span>${icons.menu}</button>
     </div>
   </nav></header>
   <div class="mobile-menu" id="mobileMenu" hidden><div class="wrap">
     ${links.map(([h, l]) => `<a class="item" href="${h}">${l}</a>`).join("")}
+    <button type="button" class="theme-row" data-theme-toggle data-row></button>
     <a class="btn btn-primary" style="width:100%;margin-top:2rem" href="#arrange">${t.nav.cta}</a>
   </div></div>`;
 }
@@ -895,6 +911,19 @@ function bind(t) {
     const y = window.scrollY; render(); window.scrollTo(0, y);
   }));
 
+  const themeBtns = document.querySelectorAll("[data-theme-toggle]");
+  const isDark = () => { const d = document.documentElement.dataset.theme; return d ? d === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; };
+  const paintTheme = () => {
+    const dark = isDark(), label = dark ? t.meta.toLight : t.meta.toDark, ic = dark ? icons.sun : icons.moon;
+    themeBtns.forEach(b => { b.innerHTML = "row" in b.dataset ? `${ic}<span>${label}</span>` : `<span class="sr-only">${label}</span>${ic}`; b.title = label; });
+  };
+  paintTheme();
+  themeBtns.forEach(b => b.addEventListener("click", () => {
+    const next = isDark() ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem("sengai-theme", next); } catch (e) {}
+    paintTheme();
+  }));
   const menuBtn = document.getElementById("menuBtn"), menu = document.getElementById("mobileMenu");
   const setMenu = open => {
     menu.hidden = !open; menuBtn.setAttribute("aria-expanded", open);
