@@ -27,15 +27,6 @@
   padding-bottom:env(safe-area-inset-bottom,0px);
   color-scheme:light;
 }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#1d1815; --bg-2:#241e1a; --husk:#2f2620; --husk-soft:#29211c;
-    --accent:#d0694a; --accent-deep:#b4512f; --accent-soft:#5a2d1f; --brass:#d1a14a;
-    --ink:#f1e7d8; --ink-soft:#c1b2a1; --line:rgba(241,231,216,.12); --line-strong:rgba(241,231,216,.24);
-    --on-accent:#1d1815; --ask-bg:#3a170c; --ask-ink:#f1e7d8; --bubble:#f6eee1; --bubble-ink:#6e2915;
-    --footer-bg:#141110; --footer-ink:#f1e7d8; --brand-teal:#6fc3b8; --tag-bg:#4a1c1c; --tag-ink:#ff9a8f; color-scheme:dark;
-  }
-}
 :root[data-theme="dark"]{
   --bg:#1d1815; --bg-2:#241e1a; --husk:#2f2620; --husk-soft:#29211c;
   --accent:#d0694a; --accent-deep:#b4512f; --accent-soft:#5a2d1f; --brass:#d1a14a;
@@ -86,7 +77,6 @@ header.nav.scrolled{box-shadow:0 1px 0 var(--line)}
 .logo{display:inline-flex;align-items:center;gap:.6rem}
 .mark{display:block;flex-shrink:0}
 .logo .mark{width:2.5rem;height:2.5rem}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo .mark,:root:not([data-theme="light"]) .form-intro .mark{padding:.2rem;background:#fbf7f0;border-radius:999px;box-sizing:content-box}}
 :root[data-theme="dark"] .logo .mark,:root[data-theme="dark"] .form-intro .mark{padding:.2rem;background:#fbf7f0;border-radius:999px;box-sizing:content-box}
 .logo .name{font-family:var(--sans);font-weight:700;color:var(--brand-teal);font-size:1.35rem;line-height:1.1;display:block}
 .logo .en{display:table;font-size:.65rem;color:var(--tag-ink);background:var(--tag-bg);padding:.12rem .5rem;border-radius:999px;font-weight:600;letter-spacing:.03em;line-height:1.2;margin-top:.2rem;font-family:var(--sans);white-space:nowrap}
@@ -913,7 +903,7 @@ function bind(t) {
   }));
 
   const themeBtns = document.querySelectorAll("[data-theme-toggle]");
-  const isDark = () => { const d = document.documentElement.dataset.theme; return d ? d === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; };
+  const isDark = () => document.documentElement.dataset.theme === "dark";
   const paintTheme = () => {
     const dark = isDark(), label = dark ? t.meta.toLight : t.meta.toDark, ic = dark ? icons.sun : icons.moon;
     themeBtns.forEach(b => { b.innerHTML = "row" in b.dataset ? `${ic}<span>${label}</span>` : `<span class="sr-only">${label}</span>${ic}`; b.title = label; });
