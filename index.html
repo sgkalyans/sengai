@@ -477,7 +477,6 @@ const en = {
   },
   footer: {
     serving: "Serving {town} and surrounding areas",
-    area: "Service area: {area}",
     contact: "Contact",
     whatsapp: "WhatsApp",
     phone: "Phone",
@@ -662,7 +661,6 @@ const ta = {
   },
   footer: {
     serving: "{town} மற்றும் சுற்றுவட்டாரப் பகுதிகளில் சேவை",
-    area: "சேவைப் பகுதி: {area}",
     contact: "தொடர்புக்கு",
     whatsapp: "வாட்ஸ்அப்",
     phone: "தொலைபேசி",
@@ -681,7 +679,6 @@ const dictionaries = { en, ta };
 /* Business details not yet confirmed — replace before launch. */
 const CONFIG = {
   town: { en: "Pattukkottai", ta: "பட்டுக்கோட்டை" },
-  serviceArea: "[SERVICE AREA]",
   whatsapp: "[WHATSAPP NUMBER]",
   phone: "[PHONE NUMBER]",
   email: "[EMAIL]",
@@ -692,7 +689,7 @@ const CONFIG = {
 const isPh = v => !v || /^\[.*\]$/.test(v.trim());
 const waDigits = () => isPh(CONFIG.whatsapp) ? "" : CONFIG.whatsapp.replace(/\D/g, "");
 const waLink = msg => waDigits() ? `https://wa.me/${waDigits()}${msg ? "?text=" + encodeURIComponent(msg) : ""}` : "#arrange";
-const fill = s => s.replaceAll("{town}", CONFIG.town[locale]).replaceAll("{area}", CONFIG.serviceArea).replaceAll("{hours}", CONFIG.deliveryHours).replaceAll("{meals}", CONFIG.mealOptions);
+const fill = s => s.replaceAll("{town}", CONFIG.town[locale]).replaceAll("{hours}", CONFIG.deliveryHours).replaceAll("{meals}", CONFIG.mealOptions);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
 /* ---------- icons ---------- */
@@ -916,7 +913,7 @@ function footer(t) {
     [icons.mail, t.footer.email, CONFIG.email, isPh(CONFIG.email) ? null : "mailto:" + CONFIG.email]
   ];
   return `<footer id="contact"><div class="wrap foot-grid">
-    <div>${logo("#f6eee1", "#e8c9b8")}<p class="f-soft" style="margin-top:1.5rem;max-width:20rem">${fill(t.footer.serving)}</p><p class="f-dim small" style="margin-top:.25rem;color:rgba(246,238,225,.5)">${fill(t.footer.area)}</p></div>
+    <div>${logo("#f6eee1", "#e8c9b8")}<p class="f-soft" style="margin-top:1.5rem;max-width:20rem">${fill(t.footer.serving)}</p></div>
     <nav aria-label="Footer"><ul>${links.map(([h, l]) => `<li><a href="${h}">${l}</a></li>`).join("")}</ul></nav>
     <div><h2>${t.footer.contact}</h2><ul class="contacts">${c.map(([ic, k, v, href]) => {
       const inner = `${ic}<span><span class="k">${k}</span><span>${esc(v)}</span></span>`;
