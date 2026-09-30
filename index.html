@@ -78,9 +78,8 @@ header.nav.scrolled{box-shadow:0 1px 0 var(--line)}
 .mark{display:block;flex-shrink:0}
 .logo .mark{width:2.5rem;height:2.5rem}
 :root[data-theme="dark"] .logo .mark,:root[data-theme="dark"] .form-intro .mark{padding:.2rem;background:#fbf7f0;border-radius:999px;box-sizing:content-box}
-.logo .name{font-family:var(--sans);font-weight:700;color:var(--brand-teal);font-size:1.35rem;line-height:1.1;display:block}
-.logo .en{display:table;font-size:.65rem;color:var(--tag-ink);background:var(--tag-bg);padding:.12rem .5rem;border-radius:999px;font-weight:600;letter-spacing:.03em;line-height:1.2;margin-top:.2rem;font-family:var(--sans);white-space:nowrap}
-@media(max-width:479px){.logo .en{padding:.1rem .4rem;letter-spacing:.01em;font-size:.6rem}}
+.logo .name{font-family:var(--sans);font-weight:700;color:var(--brand-teal);font-size:1.6rem;line-height:1.05;display:block;width:max-content}
+.logo .en{display:block;width:max-content;font-size:.65rem;color:var(--tag-ink);background:var(--tag-bg);padding:.2em .55em;border-radius:999px;font-weight:600;letter-spacing:.01em;line-height:1.2;margin-top:.2rem;font-family:var(--sans);white-space:nowrap}
 .nav-links{display:none;gap:1.75rem;font-size:.95rem;color:var(--ink-soft)}
 .nav-links a:hover{color:var(--accent)}
 @media(min-width:1024px){.nav-links{display:flex}}
@@ -888,6 +887,18 @@ function footer(t) {
 }
 
 /* ---------- render + behaviour ---------- */
+/* Size "A Caring Hand" so its pill is exactly as wide as the "Sengai" wordmark above it. */
+function fitTaglines() {
+  document.querySelectorAll(".logo").forEach(l => {
+    const name = l.querySelector(".name"), tag = l.querySelector(".en");
+    tag.style.fontSize = "";
+    const fs = parseFloat(getComputedStyle(tag).fontSize);
+    tag.style.fontSize = fs * name.getBoundingClientRect().width / tag.getBoundingClientRect().width + "px";
+  });
+}
+if (document.fonts) document.fonts.ready.then(fitTaglines);
+addEventListener("resize", fitTaglines);
+
 function render() {
   const t = dictionaries[locale];
   document.documentElement.lang = locale;
@@ -895,6 +906,7 @@ function render() {
   document.getElementById("app").innerHTML =
     nav(t) + `<main id="main">` + hero(t) + ask(t) + distance(t) + services(t) + how(t) + nri(t) + trust(t) + stories(t) + about(t) + finalCta(t) + formSection(t) + `</main>` + footer(t);
   document.getElementById("stickyCta").textContent = t.sticky.cta;
+  fitTaglines();
   firstRender = false;
   bind(t);
   loadTally();
