@@ -271,7 +271,7 @@ html[lang="ta"] .final h2{font-size:clamp(1.6rem,4.6vw,2.5rem);line-height:1.45;
 footer{background:var(--footer-bg);color:var(--footer-ink);padding:4rem 0 7rem}
 @media(min-width:768px){footer{padding:5rem 0 3rem}}
 .foot-grid{display:grid;gap:3rem}
-@media(min-width:768px){.foot-grid{grid-template-columns:1.3fr 1fr 1fr}}
+@media(min-width:768px){.foot-grid{grid-template-columns:1.3fr 1fr}}
 footer .logo svg{width:3.5rem;height:3.5rem}
 footer .logo .ta{color:var(--footer-ink);font-size:2.1rem}
 footer .logo .en{color:rgba(246,238,225,.7);font-size:.85rem}
@@ -281,10 +281,6 @@ footer nav ul{display:grid;gap:.75rem}
 footer nav a{color:rgba(246,238,225,.82)}
 footer nav a:hover{color:var(--footer-ink)}
 footer h2{font-size:1.125rem;font-weight:600}
-.contacts{margin-top:1rem;display:grid;gap:1rem}
-.contacts li{display:flex;gap:.75rem;align-items:flex-start}
-.contacts svg{width:1.25rem;height:1.25rem;color:#e8c9b8;margin-top:.2rem;flex-shrink:0}
-.contacts .k{display:block;font-size:.875rem;color:rgba(246,238,225,.55)}
 .copy{margin-top:3.5rem;border-top:1px solid rgba(246,238,225,.1);padding-top:1.5rem;font-size:.875rem;color:rgba(246,238,225,.45)}
 
 /* sticky mobile CTA */
@@ -477,10 +473,6 @@ const en = {
   },
   footer: {
     serving: "Serving {town} and surrounding areas",
-    contact: "Contact",
-    whatsapp: "WhatsApp",
-    phone: "Phone",
-    email: "Email",
     rights: "Sengai. All rights reserved.",
   },
   sticky: {
@@ -661,10 +653,6 @@ const ta = {
   },
   footer: {
     serving: "{town} மற்றும் சுற்றுவட்டாரப் பகுதிகளில் சேவை",
-    contact: "தொடர்புக்கு",
-    whatsapp: "வாட்ஸ்அப்",
-    phone: "தொலைபேசி",
-    email: "மின்னஞ்சல்",
     rights: "செங்கை. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
   },
   sticky: {
@@ -680,8 +668,6 @@ const dictionaries = { en, ta };
 const CONFIG = {
   town: { en: "Pattukkottai", ta: "பட்டுக்கோட்டை" },
   whatsapp: "[WHATSAPP NUMBER]",
-  phone: "[PHONE NUMBER]",
-  email: "[EMAIL]",
   deliveryHours: "[DELIVERY HOURS]",
   mealOptions: "[MEAL OPTIONS]",
   tallyForm: "Ekybro"
@@ -708,8 +694,6 @@ const icons = {
   bell: I('<path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15Z"/><path d="M10 20.5a2 2 0 0 0 4 0"/>'),
   check: I('<path d="m5 12.5 4.5 4.5L19 7.5"/>', ""),
   pin: I('<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21Z"/><circle cx="12" cy="10" r="2.3"/>', ""),
-  phone: I('<path d="M5 4h3.5l1.5 4.5-2 1.5a11 11 0 0 0 6 6l1.5-2 4.5 1.5V19a2 2 0 0 1-2 2A17 17 0 0 1 3 6a2 2 0 0 1 2-2Z"/>', ""),
-  mail: I('<rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="m4 7 8 6 8-6"/>', ""),
   menu: I('<path d="M4 8h16M4 16h16"/>'),
   close: I('<path d="M6 6l12 12M18 6 6 18"/>'),
   wa: (s = 20) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.98L2 22l5.16-1.5A9.9 9.9 0 1 0 12.04 2Zm0 18.1a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.06.9.9-2.98-.2-.31a8.2 8.2 0 1 1 6.86 3.72Zm4.5-6.14c-.25-.12-1.46-.72-1.69-.8-.23-.08-.39-.12-.55.12-.16.25-.63.8-.78.96-.14.17-.29.19-.53.07a6.7 6.7 0 0 1-3.34-2.92c-.25-.43.25-.4.72-1.34.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.41-.55-.42h-.47a.9.9 0 0 0-.65.3 2.74 2.74 0 0 0-.86 2.04c0 1.2.88 2.37 1 2.53.12.17 1.73 2.64 4.2 3.7 1.56.68 2.17.73 2.95.62.48-.07 1.46-.6 1.67-1.18.2-.58.2-1.08.14-1.18-.06-.1-.22-.17-.47-.29Z"/></svg>`
@@ -733,7 +717,7 @@ let firstRender = true, cityIdx = 0, cityTimer = null;
 
 /* ---------- sections ---------- */
 function nav(t) {
-  const links = [["#top", t.nav.home], ["#how", t.nav.how], ["#services", t.nav.services], ["#about", t.nav.about], ["#contact", t.nav.contact]];
+  const links = [["#top", t.nav.home], ["#how", t.nav.how], ["#services", t.nav.services], ["#about", t.nav.about], ["#arrange", t.nav.contact]];
   return `<a class="skip" href="#main">${t.meta.skip}</a>
   <header class="nav" id="navbar"><nav class="wrap nav-in" aria-label="Main">
     <a href="#top" aria-label="Sengai home">${logo()}</a>
@@ -876,7 +860,7 @@ function finalCta(t) {
   return `<section class="final" aria-labelledby="final-title"><div class="final-in">
     <h2 id="final-title"><span>${f.title[0]}</span><span>${f.title[1]}</span></h2>
     <p>${f.body}</p>
-    <div class="cta-row"><a class="btn btn-light" href="#arrange">${f.primary}</a><a class="btn btn-outline-light" href="${waDigits() ? waLink(t.form.waIntro) : "#contact"}">${icons.wa()}${f.secondary}</a></div>
+    <div class="cta-row"><a class="btn btn-light" href="#arrange">${f.primary}</a><a class="btn btn-outline-light" href="${waDigits() ? waLink(t.form.waIntro) : "#arrange"}">${icons.wa()}${f.secondary}</a></div>
   </div></section>`;
 }
 
@@ -906,19 +890,10 @@ function loadTally() {
 }
 
 function footer(t) {
-  const links = [["#top", t.nav.home], ["#how", t.nav.how], ["#services", t.nav.services], ["#about", t.nav.about], ["#contact", t.nav.contact]];
-  const c = [
-    [icons.wa(20), t.footer.whatsapp, CONFIG.whatsapp, waDigits() ? waLink() : null],
-    [icons.phone, t.footer.phone, CONFIG.phone, isPh(CONFIG.phone) ? null : "tel:" + CONFIG.phone.replace(/\s/g, "")],
-    [icons.mail, t.footer.email, CONFIG.email, isPh(CONFIG.email) ? null : "mailto:" + CONFIG.email]
-  ];
+  const links = [["#top", t.nav.home], ["#how", t.nav.how], ["#services", t.nav.services], ["#about", t.nav.about], ["#arrange", t.nav.contact]];
   return `<footer id="contact"><div class="wrap foot-grid">
     <div>${logo("#f6eee1", "#e8c9b8")}<p class="f-soft" style="margin-top:1.5rem;max-width:20rem">${fill(t.footer.serving)}</p></div>
     <nav aria-label="Footer"><ul>${links.map(([h, l]) => `<li><a href="${h}">${l}</a></li>`).join("")}</ul></nav>
-    <div><h2>${t.footer.contact}</h2><ul class="contacts">${c.map(([ic, k, v, href]) => {
-      const inner = `${ic}<span><span class="k">${k}</span><span>${esc(v)}</span></span>`;
-      return `<li>${href ? `<a href="${href}" style="display:flex;gap:.75rem">${inner}</a>` : inner}</li>`;
-    }).join("")}</ul></div>
   </div><div class="wrap"><p class="copy">© ${new Date().getFullYear()} ${t.footer.rights}</p></div></footer>`;
 }
 
