@@ -261,40 +261,11 @@ html[lang="ta"] .final h2{font-size:clamp(1.6rem,4.6vw,2.5rem);line-height:1.45;
 @media(min-width:1024px){.form-grid{grid-template-columns:.8fr 1.2fr;gap:4rem}.form-intro{position:sticky;top:7rem;align-self:start}}
 .form-intro svg{width:3rem;height:3rem}
 .form-intro h2{margin-top:1.25rem}
-form{display:grid;gap:1.5rem;min-width:0}
-.group{border:0;margin:0;background:var(--bg-2);border-radius:var(--r);padding:1.25rem;min-width:0}
-@media(min-width:640px){.group{padding:1.75rem}}
-.group-title{display:flex;align-items:center;gap:.75rem;font-size:1.125rem;font-weight:600;margin-bottom:1.25rem}
-.group-title span{width:1.75rem;height:1.75rem;border-radius:999px;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-size:.875rem}
-.fields{display:grid;gap:1.25rem}
-@media(min-width:640px){.fields{grid-template-columns:1fr 1fr}.span2{grid-column:span 2}}
-label.fl{display:block;margin-bottom:.35rem;font-weight:500}
-.req{color:var(--accent)}
-.opt{font-weight:400;color:var(--ink-soft)}
-.inp{width:100%;border:1px solid var(--line-strong);background:var(--bg);border-radius:.75rem;padding:.75rem 1rem;font-size:1rem;min-height:3rem;transition:border-color .2s,box-shadow .2s}
-.inp::placeholder{color:color-mix(in srgb,var(--ink-soft) 65%,transparent)}
-.inp:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 20%,transparent)}
-select.inp{appearance:none;-webkit-appearance:none;padding-right:2.5rem;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23948779' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;background-size:1rem}
-.inp[aria-invalid="true"]{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
-textarea.inp{min-height:6rem;resize:vertical}
-.diet{display:flex;flex-wrap:wrap;gap:.5rem}
-.diet label{cursor:pointer}
-.diet input{position:absolute;opacity:0;pointer-events:none}
-.diet span{display:inline-flex;align-items:center;min-height:2.5rem;padding:0 1rem;border:1px solid var(--line-strong);border-radius:999px;background:var(--bg);color:var(--ink-soft);font-size:.95rem;transition:all .15s}
-.diet input:checked+span{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
-.diet input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.tally-wrap{background:var(--bg-2);border-radius:var(--r);padding:1.25rem;min-width:0}
+@media(min-width:640px){.tally-wrap{padding:1.75rem}}
+.tally-wrap iframe{display:block;width:100%;min-height:22rem;border:0}
+.alt-wa{margin-top:1.5rem;display:flex;flex-direction:column;gap:.75rem;align-items:flex-start}
 .small{font-size:.875rem;color:var(--ink-soft)}
-.proto-note{font-size:.8rem;color:var(--ink-soft);border:1px dashed var(--line-strong);border-radius:.6rem;padding:.5rem .75rem}
-.submit-row{display:flex;flex-direction:column;gap:.75rem}
-@media(min-width:640px){.submit-row{flex-direction:row;align-items:center}.submit-row .btn-primary{min-width:14rem}}
-.thanks{background:var(--bg-2);border-radius:var(--r);padding:2.5rem 1.5rem;text-align:center;outline:none}
-@media(min-width:640px){.thanks{padding:3rem}}
-.thanks .tick{width:3.5rem;height:3.5rem;margin:0 auto;border-radius:999px;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center}
-.thanks h3{margin-top:1.5rem;font-size:2rem;font-weight:700}
-.thanks p{margin:.75rem auto 0;max-width:28rem;font-size:1.125rem;color:var(--ink-soft)}
-.thanks .acts{margin-top:2rem;display:flex;flex-direction:column;align-items:center;gap:1rem}
-@keyframes pop{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
-.thanks{animation:pop .4s cubic-bezier(.22,1,.36,1) both}
 
 /* footer */
 footer{background:var(--footer-bg);color:var(--footer-ink);padding:4rem 0 7rem}
@@ -323,7 +294,7 @@ footer h2{font-size:1.125rem;font-weight:600}
 .sticky .wa{width:3rem;height:3rem;border-radius:999px;background:var(--wa);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 @media(min-width:768px){.sticky{display:none}}
 
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rise,.city,.thanks{animation:none}.sticky{transition:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rise,.city{animation:none}.sticky{transition:none}}
 </style>
 </head>
 <body>
@@ -495,47 +466,12 @@ const en = {
   },
   form: {
     title: "Arrange a meal",
-    intro: "Tell us a little about you and the person you’re arranging for. We’ll get in touch to confirm the details — nothing is charged at this step.",
-    sections: {
-      you: "About you",
-      them: "About them",
-      meals: "Their meals",
-    },
-    fields: {
-      name: "Your name",
-      whatsapp: "Your WhatsApp number",
-      whatsappHint: "With country code, e.g. +65 …",
-      email: "Email",
-      location: "Where you live (country / city)",
-      lovedName: "Their name",
-      relationship: "They are your…",
-      lovedLocation: "Town or area",
-      lovedPhone: "Their phone number",
-      address: "Delivery address",
-      mealType: "Meal",
-      frequency: "How often",
-      time: "Preferred delivery time",
-      timeHint: "e.g. around 12:30 pm",
-      diet: "Food preferences",
-      notes: "Anything else we should know",
-      notesHint: "Health needs, how they like their food, the best time to call them…",
-      optional: "optional",
-    },
-    relationships: ["Mother", "Father", "Both parents", "Grandparent", "Other family member", "Someone else"],
-    mealTypes: ["Breakfast", "Lunch", "Dinner", "Not sure yet"],
-    frequencies: ["Just once, to try", "Every day", "A few days a week", "Once a week", "Not sure yet"],
-    diets: ["Vegetarian", "Non-vegetarian", "Less salt", "Less oil", "Less spicy", "Low sugar", "Soft food"],
-    dietNote: "For medical diets, add details in the notes and we’ll discuss them with you.",
-    select: "Choose one",
-    submit: "Start Caring",
-    sending: "Sending…",
-    required: "Please fill in the fields marked with *.",
-    error: "Your details didn’t reach us. Check your connection and send again, or message us on WhatsApp.",
-    thanks: "Thank you.",
-    thanksBody: "We will contact you shortly to arrange the service.",
-    continueWa: "Continue on WhatsApp",
-    another: "Arrange for someone else",
-    waIntro: "Hi Sengai, I just sent an enquiry.",
+    intro: "Leave your details and our team will contact you on WhatsApp. Nothing is charged at this step.",
+    frameTitle: "Arrange a meal form",
+    openForm: "Open the form",
+    orWa: "Prefer to chat? Message us directly.",
+    chatWa: "Chat on WhatsApp",
+    waIntro: "Hi Sengai, I'd like to arrange a meal.",
   },
   footer: {
     serving: "Serving {town} and surrounding areas",
@@ -713,47 +649,12 @@ const ta = {
   },
   form: {
     title: "சாப்பாடு ஏற்பாடு செய்யுங்கள்",
-    intro: "உங்களைப் பற்றியும், யாருக்காக ஏற்பாடு செய்கிறீர்கள் என்பதைப் பற்றியும் கொஞ்சம் சொல்லுங்கள். விவரங்களை உறுதி செய்ய நாங்கள் உங்களைத் தொடர்பு கொள்வோம் — இப்போது எந்தக் கட்டணமும் இல்லை.",
-    sections: {
-      you: "உங்களைப் பற்றி",
-      them: "அவர்களைப் பற்றி",
-      meals: "அவர்களுக்கான சாப்பாடு",
-    },
-    fields: {
-      name: "உங்கள் பெயர்",
-      whatsapp: "உங்கள் வாட்ஸ்அப் எண்",
-      whatsappHint: "நாட்டுக் குறியீட்டுடன், எ.கா. +65 …",
-      email: "மின்னஞ்சல்",
-      location: "நீங்கள் இருக்கும் இடம் (நாடு / நகரம்)",
-      lovedName: "அவர்கள் பெயர்",
-      relationship: "அவர்கள் உங்களுக்கு…",
-      lovedLocation: "ஊர் / பகுதி",
-      lovedPhone: "அவர்கள் தொலைபேசி எண்",
-      address: "டெலிவரி முகவரி",
-      mealType: "எந்த வேளை",
-      frequency: "எத்தனை முறை",
-      time: "விரும்பும் டெலிவரி நேரம்",
-      timeHint: "எ.கா. மதியம் 12:30 மணி அளவில்",
-      diet: "உணவு விருப்பங்கள்",
-      notes: "நாங்கள் தெரிந்துகொள்ள வேண்டியவை",
-      notesHint: "உடல்நலத் தேவைகள், சாப்பாடு எப்படிப் பிடிக்கும், அவர்களை அழைக்க ஏற்ற நேரம்…",
-      optional: "விருப்பப்பட்டால்",
-    },
-    relationships: ["அம்மா", "அப்பா", "அம்மா அப்பா இருவரும்", "தாத்தா / பாட்டி", "மற்ற உறவினர்", "வேறு ஒருவர்"],
-    mealTypes: ["காலை டிபன்", "மதியச் சாப்பாடு", "இரவுச் சாப்பாடு", "இன்னும் முடிவு செய்யவில்லை"],
-    frequencies: ["ஒரு முறை, முயற்சிக்க", "தினமும்", "வாரத்தில் சில நாட்கள்", "வாரம் ஒருமுறை", "இன்னும் முடிவு செய்யவில்லை"],
-    diets: ["சைவம்", "அசைவம்", "உப்பு குறைவாக", "எண்ணெய் குறைவாக", "காரம் குறைவாக", "சர்க்கரை குறைவாக", "மென்மையான உணவு"],
-    dietNote: "மருத்துவ ரீதியான உணவுக் கட்டுப்பாடுகள் இருந்தால், குறிப்புகளில் எழுதுங்கள். உங்களிடம் பேசி முடிவு செய்வோம்.",
-    select: "தேர்ந்தெடுங்கள்",
-    submit: "அக்கறையைத் தொடங்குங்கள்",
-    sending: "அனுப்புகிறோம்…",
-    required: "* குறியிட்ட விவரங்களை நிரப்புங்கள்.",
-    error: "உங்கள் விவரங்கள் எங்களுக்கு வந்து சேரவில்லை. இணைய இணைப்பைச் சரிபார்த்து மீண்டும் அனுப்புங்கள், அல்லது வாட்ஸ்அப்பில் தொடர்பு கொள்ளுங்கள்.",
-    thanks: "நன்றி.",
-    thanksBody: "சேவையை ஏற்பாடு செய்ய விரைவில் உங்களைத் தொடர்பு கொள்வோம்.",
-    continueWa: "வாட்ஸ்அப்பில் தொடருங்கள்",
-    another: "வேறொருவருக்கு ஏற்பாடு செய்ய",
-    waIntro: "வணக்கம் செங்கை, இப்போதுதான் விவரங்களை அனுப்பினேன்.",
+    intro: "உங்கள் விவரங்களைத் தாருங்கள், எங்கள் குழு வாட்ஸ்அப்பில் தொடர்பு கொள்ளும். இப்போது எந்தக் கட்டணமும் இல்லை.",
+    frameTitle: "சாப்பாடு ஏற்பாடு படிவம்",
+    openForm: "படிவத்தைத் திறக்க",
+    orWa: "நேரடியாகப் பேச விரும்புகிறீர்களா?",
+    chatWa: "வாட்ஸ்அப்பில் பேச",
+    waIntro: "வணக்கம் செங்கை, சாப்பாடு ஏற்பாடு செய்ய விரும்புகிறேன்.",
   },
   footer: {
     serving: "{town} மற்றும் சுற்றுவட்டாரப் பகுதிகளில் சேவை",
@@ -781,7 +682,8 @@ const CONFIG = {
   phone: "[PHONE NUMBER]",
   email: "[EMAIL]",
   deliveryHours: "[DELIVERY HOURS]",
-  mealOptions: "[MEAL OPTIONS]"
+  mealOptions: "[MEAL OPTIONS]",
+  tallyForm: "Ekybro"
 };
 const isPh = v => !v || /^\[.*\]$/.test(v.trim());
 const waDigits = () => isPh(CONFIG.whatsapp) ? "" : CONFIG.whatsapp.replace(/\D/g, "");
@@ -826,8 +728,7 @@ const photo = (scene, cls, alt) => `<div class="photo ${cls}" role="img" aria-la
 /* ---------- state ---------- */
 let locale = "en";
 try { const q = new URLSearchParams(location.search).get("lang"); const s = localStorage.getItem("sengai-locale"); locale = (q === "ta" || q === "en") ? q : (s === "ta" ? "ta" : "en"); } catch (e) {}
-let firstRender = true, cityIdx = 0, cityTimer = null, sent = null;
-const EN = dictionaries.en.form;
+let firstRender = true, cityIdx = 0, cityTimer = null;
 
 /* ---------- sections ---------- */
 function nav(t) {
@@ -978,62 +879,29 @@ function finalCta(t) {
   </div></section>`;
 }
 
-function field(label, name, { type = "text", req, opt, ph = "", ac = "", multi, span, im } = {}) {
-  const id = "f-" + name;
-  const lab = `<label class="fl" for="${id}">${label}${req ? ' <span class="req" aria-hidden="true">*</span>' : opt ? ` <span class="opt">(${opt})</span>` : ""}</label>`;
-  const ctl = multi
-    ? `<textarea class="inp" id="${id}" name="${name}" rows="3" placeholder="${esc(ph)}"${req ? " required" : ""}></textarea>`
-    : `<input class="inp" id="${id}" name="${name}" type="${type}" placeholder="${esc(ph)}"${ac ? ` autocomplete="${ac}"` : ""}${im ? ` inputmode="${im}"` : ""}${req ? " required" : ""}>`;
-  return `<div class="${span ? "span2" : ""}">${lab}${ctl}</div>`;
-}
-function select(label, name, opts, vals, ph, req) {
-  const id = "f-" + name;
-  return `<div><label class="fl" for="${id}">${label}${req ? ' <span class="req" aria-hidden="true">*</span>' : ""}</label>
-    <select class="inp" id="${id}" name="${name}"${req ? " required" : ""}><option value="" disabled selected>${ph}</option>${opts.map((o, i) => `<option value="${esc(vals[i])}">${o}</option>`).join("")}</select></div>`;
-}
-
 function formSection(t) {
-  const f = t.form, F = f.fields, o = F.optional;
-  const body = sent ? `<div class="thanks" id="thanks" tabindex="-1" role="status">
-      <div class="tick">${icons.check}</div>
-      <h3>${f.thanks}</h3><p>${f.thanksBody}</p>
-      <div class="acts">
-        <a class="btn btn-wa" href="${waLink(sent)}" ${waDigits() ? 'target="_blank" rel="noopener"' : ""}>${icons.wa()}${f.continueWa}</a>
-        <button class="btn btn-text" type="button" id="another">${f.another}</button>
-      </div>
-    </div>`
-  : `<form id="enquiry" novalidate aria-describedby="req-note">
-      <p id="req-note" class="small">${f.required}</p>
-      <fieldset class="group"><legend class="sr-only">${f.sections.you}</legend><p class="group-title" aria-hidden="true"><span>1</span>${f.sections.you}</p><div class="fields">
-        ${field(F.name, "name", { req: 1, ac: "name" })}
-        ${field(F.whatsapp, "whatsapp", { req: 1, type: "tel", ac: "tel", im: "tel", ph: F.whatsappHint })}
-        ${field(F.email, "email", { type: "email", ac: "email", opt: o })}
-        ${field(F.location, "location", { ac: "country-name", opt: o })}
-      </div></fieldset>
-      <fieldset class="group"><legend class="sr-only">${f.sections.them}</legend><p class="group-title" aria-hidden="true"><span>2</span>${f.sections.them}</p><div class="fields">
-        ${field(F.lovedName, "lovedName", { req: 1 })}
-        ${select(F.relationship, "relationship", f.relationships, EN.relationships, f.select, 1)}
-        ${field(F.lovedLocation, "lovedLocation", { req: 1 })}
-        ${field(F.lovedPhone, "lovedPhone", { type: "tel", im: "tel", opt: o })}
-        ${field(F.address, "address", { multi: 1, span: 1, opt: o })}
-      </div></fieldset>
-      <fieldset class="group"><legend class="sr-only">${f.sections.meals}</legend><p class="group-title" aria-hidden="true"><span>3</span>${f.sections.meals}</p><div class="fields">
-        ${select(F.mealType, "mealType", f.mealTypes, EN.mealTypes, f.select)}
-        ${select(F.frequency, "frequency", f.frequencies, EN.frequencies, f.select)}
-        ${field(F.time, "time", { ph: F.timeHint, opt: o })}
-        <fieldset class="span2" style="border:0;margin:0;padding:0;min-width:0"><legend class="fl">${F.diet} <span class="opt">(${o})</span></legend>
-          <div class="diet">${f.diets.map((d, i) => `<label><input type="checkbox" name="diet" value="${esc(EN.diets[i])}"><span>${d}</span></label>`).join("")}</div>
-          <p class="small" style="margin-top:.5rem">${f.dietNote}</p></fieldset>
-        ${field(F.notes, "notes", { multi: 1, span: 1, ph: F.notesHint, opt: o })}
-      </div></fieldset>
-      <p class="small" id="formErr" role="alert" style="color:var(--accent);font-weight:500" hidden>${f.required}</p>
-      <div class="submit-row"><button class="btn btn-primary" type="submit">${f.submit}</button></div>
-      <p class="proto-note">Prototype: details are not sent anywhere yet.</p>
-    </form>`;
+  const f = t.form;
+  const src = `https://tally.so/embed/${CONFIG.tallyForm}?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1`;
   return `<section id="arrange" class="sec" aria-labelledby="arrange-title"><div class="wrap form-grid">
     <div class="form-intro">${mark()}<h2 id="arrange-title" class="h2">${f.title}</h2><p class="lead" style="margin-top:1rem">${f.intro}</p></div>
-    <div style="min-width:0">${body}</div>
+    <div style="min-width:0">
+      <div class="tally-wrap"><iframe data-tally-src="${src}" loading="lazy" height="352" title="${esc(f.frameTitle)}"></iframe>
+        <noscript><a class="btn btn-primary" href="https://tally.so/r/${CONFIG.tallyForm}">${f.openForm}</a></noscript></div>
+      ${waDigits() ? `<div class="alt-wa"><p class="small">${f.orWa}</p>
+        <a class="btn btn-wa" href="${waLink(f.waIntro)}" target="_blank" rel="noopener">${icons.wa()}${f.chatWa}</a></div>` : ""}
+    </div>
   </div></section>`;
+}
+
+/* Tally embed: load its script once, then (re)load iframes after each render. */
+function loadTally() {
+  const fallback = () => document.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(e => e.src = e.dataset.tallySrc);
+  if (typeof Tally !== "undefined") return Tally.loadEmbeds();
+  const w = "https://tally.so/widgets/embed.js";
+  if (document.querySelector(`script[src="${w}"]`)) return fallback();
+  const sc = document.createElement("script");
+  sc.src = w; sc.onload = () => typeof Tally !== "undefined" ? Tally.loadEmbeds() : fallback(); sc.onerror = fallback;
+  document.body.appendChild(sc);
 }
 
 function footer(t) {
@@ -1066,6 +934,7 @@ function render() {
   wa.href = waLink(t.form.waIntro);
   firstRender = false;
   bind(t);
+  loadTally();
 }
 
 let observers = [];
@@ -1086,21 +955,6 @@ function bind(t) {
   menuBtn.addEventListener("click", () => setMenu(menu.hidden));
   menu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => setMenu(false)));
   document.onkeydown = e => { if (e.key === "Escape" && !menu.hidden) setMenu(false); };
-
-  const form = document.getElementById("enquiry");
-  if (form) form.addEventListener("submit", e => {
-    e.preventDefault();
-    const bad = [...form.querySelectorAll("[required]")].filter(el => !el.value.trim());
-    const err = document.getElementById("formErr");
-    form.querySelectorAll("[aria-invalid]").forEach(el => el.removeAttribute("aria-invalid"));
-    if (bad.length) { bad.forEach(el => el.setAttribute("aria-invalid", "true")); err.hidden = false; bad[0].focus(); return; }
-    const d = new FormData(form), g = k => String(d.get(k) || "").trim();
-    sent = [t.form.waIntro, `${g("name")}${g("location") ? " (" + g("location") + ")" : ""}`, `→ ${g("relationship")}: ${g("lovedName")}, ${g("lovedLocation")}`, [g("mealType"), g("frequency")].filter(Boolean).join(", ")].filter(Boolean).join("\n");
-    const y = window.scrollY; render(); window.scrollTo(0, y);
-    const th = document.getElementById("thanks"); th.focus({ preventScroll: true }); th.scrollIntoView({ block: "center", behavior: "smooth" });
-  });
-  const another = document.getElementById("another");
-  if (another) another.addEventListener("click", () => { sent = null; const y = window.scrollY; render(); window.scrollTo(0, y); });
 
   // city cycle
   clearInterval(cityTimer);
