@@ -166,6 +166,7 @@ const en = {
     intro: "Leave your details and our team will contact you on WhatsApp.",
     frameTitle: "Arrange a meal form",
     openForm: "Open the form",
+    formTrouble: "Form not loading fully?",
   },
   footer: {
     serving: "Serving {town} and surrounding areas",
@@ -345,6 +346,7 @@ const ta = {
     intro: "உங்கள் விவரங்களைத் தாருங்கள், எங்கள் குழு வாட்ஸ்அப்பில் தொடர்பு கொள்ளும்.",
     frameTitle: "சாப்பாடு ஏற்பாடு படிவம்",
     openForm: "படிவத்தைத் திறக்க",
+    formTrouble: "படிவம் முழுமையாகத் தெரியவில்லையா?",
   },
   footer: {
     serving: "{town} மற்றும் சுற்றுவட்டாரப் பகுதிகளில் சேவை",
@@ -553,22 +555,38 @@ function formSection(t) {
   return `<section id="arrange" class="sec" aria-labelledby="arrange-title"><div class="wrap form-grid">
     <div class="form-intro">${mark()}<h2 id="arrange-title" class="h2">${f.title}</h2><p class="lead" style="margin-top:1rem">${f.intro}</p></div>
     <div style="min-width:0">
-      <div class="tally-wrap"><iframe data-tally-src="${src}" loading="lazy" height="352" title="${esc(f.frameTitle)}"></iframe>
+      <div class="tally-wrap"><iframe data-tally-src="${src}" loading="lazy" height="560" title="${esc(f.frameTitle)}"></iframe>
         <noscript><a class="btn btn-primary" href="https://tally.so/r/${CONFIG.tallyForm}">${f.openForm}</a></noscript></div>
+      <p class="small form-alt">${f.formTrouble} <a href="https://tally.so/r/${CONFIG.tallyForm}" target="_blank" rel="noopener">${f.openForm} ↗</a></p>
     </div>
   </div></section>`;
 }
 
 /* Tally embed: load its script once, then (re)load iframes after each render. */
+let tallyScript;
 function loadTally() {
   const fallback = () => document.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(e => e.src = e.dataset.tallySrc);
   if (typeof Tally !== "undefined") return Tally.loadEmbeds();
-  const w = "https://tally.so/widgets/embed.js";
-  if (document.querySelector(`script[src="${w}"]`)) return fallback();
-  const sc = document.createElement("script");
-  sc.src = w; sc.onload = () => typeof Tally !== "undefined" ? Tally.loadEmbeds() : fallback(); sc.onerror = fallback;
-  document.body.appendChild(sc);
+  // Still loading from an earlier render: wait for it rather than loading the iframe without Tally.
+  if (tallyScript) return tallyScript.then(() => typeof Tally !== "undefined" ? Tally.loadEmbeds() : fallback(), fallback);
+  tallyScript = new Promise((ok, fail) => {
+    const sc = document.createElement("script");
+    sc.src = "https://tally.so/widgets/embed.js"; sc.onload = ok; sc.onerror = fail;
+    document.body.appendChild(sc);
+  });
+  tallyScript.then(() => typeof Tally !== "undefined" ? Tally.loadEmbeds() : fallback(), fallback);
 }
+
+/* Resize the form to its content from Tally's own height messages, so it is never cut off
+   even when Tally's script loads late or not at all. */
+addEventListener("message", e => {
+  if (e.origin !== "https://tally.so") return;
+  let d = e.data;
+  if (typeof d === "string") { try { d = JSON.parse(d); } catch (err) { return; } }
+  const h = d && ((d.payload && d.payload.height) || d.height);
+  if (typeof h !== "number" || h < 100) return;
+  document.querySelectorAll(".tally-wrap iframe").forEach(f => { if (f.contentWindow === e.source) f.style.height = Math.ceil(h) + "px"; });
+});
 
 function footer(t) {
   const links = [["#top", t.nav.home], ["#how", t.nav.how], ["#services", t.nav.services], ["#about", t.nav.about]];
